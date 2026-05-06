@@ -1,0 +1,176 @@
+# 🚀 Servicios Backend - Fastify + Firebird
+
+Backend desarrollado con **Fastify** para manejo de servicios, autenticación y conexión a múltiples bases de datos Firebird de forma dinámica.
+
+---
+
+## 📁 Estructura del Proyecto
+
+```bash
+.
+├── database/
+│   ├── repositories/       # Acceso a datos (queries a BD)
+│   ├── db.js               # Conexión principal a Firebird
+│   ├── config.js           # Configuración de BD (env)
+│   ├── FirebirdPoolFactory.js  # Factory de pools
+│   ├── PoolConsulta.js     # Manejo de consultas
+│   └── BdAfiliaciones.js   # Catálogo de bases (multi-BD)
+│
+├── helpers/                # Funciones auxiliares
+├── middleware/             # Middlewares (si aplican)
+├── models/                 # Server / configuración principal
+├── routes/                 # Definición de endpoints
+├── schema/                 # Validaciones (AJV)
+│   └── fields/             # Campos reutilizables
+│
+├── services/               # Lógica de negocio
+├── .env                    # Variables de entorno
+├── app.js                  # Punto de entrada
+└── package.json
+```
+
+---
+
+## ⚙️ Tecnologías
+
+* Node.js
+* Fastify
+* Firebird
+* AJV (validación de esquemas)
+* dotenv
+
+---
+
+## 🔧 Configuración
+
+### 1. Instalar dependencias
+
+```bash
+npm install
+```
+
+---
+
+### 2. Configurar variables de entorno
+
+Crear archivo `.env`:
+
+```env
+DB_HOST=localhost
+DB_PORT=3050
+DB_NAME=D:\BD_CLIENTES\PraderaCRMPTICS\BDCRMPTICS\BDMOVIMIENTOSPTICS.FDB
+DB_USER=SYSDBA
+DB_PASSWORD=masterkey
+DB_CHARSET=WIN1252
+PORT=8080
+```
+
+---
+
+### 3. Ejecutar proyecto
+
+```bash
+npm start
+```
+
+Servidor corriendo en:
+
+```
+http://localhost:8080
+```
+
+---
+
+## 🧠 Arquitectura
+
+El proyecto sigue una arquitectura modular:
+
+### 🔹 Routes
+
+Definen endpoints y aplican validaciones.
+
+### 🔹 Controllers
+
+Reciben request y delegan al service.
+
+### 🔹 Services
+
+Contienen la lógica de negocio.
+
+### 🔹 Repositories
+
+Encapsulan el acceso a la base de datos.
+
+---
+
+## 🔐 Ejemplo Endpoint: Login
+
+### POST `/api/users/login`
+
+#### Body (JSON)
+
+```json
+{
+  "username": "admin",
+  "password": "123",
+  "subdominio": "empresa1"
+}
+```
+
+---
+
+## ✅ Validaciones
+
+Se manejan con AJV + `ajv-errors`:
+
+* Campos obligatorios
+* Mensajes personalizados
+* Reutilización de campos (`fields`)
+
+---
+
+## 🗄️ Base de Datos (Multi-BD)
+
+El sistema permite conexión dinámica a múltiples bases de datos usando:
+
+* Catálogo (`BdAfiliaciones`)
+* Pool de conexiones
+* Selección por `subdominio`
+
+---
+
+## 🔒 Seguridad
+
+Actualmente:
+
+* Hash de contraseñas con SHA256 (compatibilidad VB6)
+
+Recomendado:
+
+* Migrar progresivamente a bcrypt
+
+---
+
+## ⚠️ Notas importantes
+
+* Usar siempre `Content-Type: application/json`
+* Firebird debe estar accesible (puerto 3050)
+* Validar correctamente variables de entorno
+
+---
+
+## 🚀 Mejoras futuras
+
+* Implementar JWT
+* Migración completa a bcrypt
+* Manejo global de errores
+* Logging estructurado
+* Tests
+
+---
+
+## 👨‍💻 Autor
+
+Proyecto desarrollado como parte de migración de sistema legacy (VB6) a arquitectura moderna con Node.js.
+
+---
