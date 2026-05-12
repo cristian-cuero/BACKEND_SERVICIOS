@@ -19,6 +19,7 @@ class Server {
 
     this.paths = {
       usuarios: "/api/users",
+      servicios: "/api/services",
     };
 
     this.middleware();
@@ -52,6 +53,9 @@ class Server {
     routes() {
       this.app.register(require("../routes/user.router"), {
         prefix: this.paths.usuarios,
+      });
+      this.app.register(require("../routes/service.router"), {
+        prefix: this.paths.servicios,
       });
 
     }

@@ -19,6 +19,13 @@ const fields = {
     errorMessage: {
       minLength: "El subdominio no puede estar vacío"
     }
+  },
+  des: {
+    type: "string",
+    minLength: 1,
+    errorMessage: {
+      minLength: "El usuario no puede estar vacío"
+    }
   }
 };
 
