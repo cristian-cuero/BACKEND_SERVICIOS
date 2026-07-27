@@ -4,7 +4,6 @@ const DB_CATALOG = new Map();
 let lastLoad = 0;
 const TTL = 1000 * 60 * 5;
 
-
 async function loadDbCatalog(force = false) {
   const now = Date.now();
 
@@ -31,19 +30,20 @@ async function loadDbCatalog(force = false) {
           DB_CATALOG.set(r.subdominio, {
             host: r.ip,
             port: Number(r.puerto),
-            user: 'SYSDBA',
-            password: 'masterkey',
-            database: r.bd.replace(/\\\\/g, '\\'),
+            user: "SYSDBA",
+            password: "masterkey",
+            database: r.bd.replace(/\\\\/g, "\\"),
+            charset: "WIN1252",
+            lowercase_keys: true,
           });
         });
 
         lastLoad = now;
-      
+
         resolve(DB_CATALOG);
       });
     });
   });
 }
-
 
 module.exports = { DB_CATALOG, loadDbCatalog };
