@@ -17,11 +17,7 @@ class Server {
     });
     this.port = 8080;
 
-    this.paths = {
-      usuarios: "/api/users",
-      servicios: "/api/services",
-      pagos: "/api/pagos",
-    };
+    this.paths = require("../config/paths");
 
     this.middleware();
     this.conectarDB();
@@ -60,6 +56,18 @@ class Server {
       });
       this.app.register(require("../routes/pagos.router"), {
         prefix: this.paths.pagos,
+      });
+      // ruta de lo relacionado a parentesco
+      this.app.register(require("../routes/parentesco.router"), {
+        prefix: this.paths.parentesco,
+      });
+      //ruta de sede
+      this.app.register(require("../routes/sedes.router"), {
+        prefix: this.paths.sede,
+      });
+      //ruta de cementerio
+      this.app.register(require("../routes/cementerio.router"), {
+        prefix: this.paths.cementerio,
       });
 
     }

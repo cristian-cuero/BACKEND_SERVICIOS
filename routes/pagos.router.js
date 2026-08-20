@@ -1,4 +1,4 @@
-const { default: fastify } = require("fastify");
+
 const { validarJWT } = require("../middleware/validarJWT");
 const { loadPagosServicios } = require("../controller/pagos.controller");
 
