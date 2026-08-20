@@ -5,6 +5,7 @@ const paths = {
   parentesco: "/api/parentesco",
   sede: "/api/sede",
   cementerio: "/api/cementerio",
+  
 };
 
 module.exports = paths;

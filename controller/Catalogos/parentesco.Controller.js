@@ -1,6 +1,6 @@
 const {
   getParentescoSql,
-} = require("../../database/repositories/Parentesco/parentesco.repositories");
+} = require("../../database/repositories/Parentesco/parentesco.Repositories");
 const { validarTenant } = require("../../helpers/requestValidator");
 
 async function getParentesco(req, reply) {
