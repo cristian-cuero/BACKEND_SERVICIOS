@@ -1,6 +1,6 @@
 
-const { getParentesco } = require("../controller/Catalogos/parentesco.Controller");
-const { validarJWT } = require("../middleware/validarJWT");
+const { getParentesco } = require("../../controller/Catalogos/parentesco.Controller");
+const { validarJWT } = require("../../middleware/validarJWT");
 
 module.exports = (fastify) => {
   fastify.get("/loadParentesco", {

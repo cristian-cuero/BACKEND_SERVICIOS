@@ -1,6 +1,6 @@
 
-const { getSedes } = require("../controller/Catalogos/sedes.Controller")
-const { validarJWT } = require("../middleware/validarJWT")
+const { getSedes } = require("../../controller/Catalogos/sedes.Controller")
+const { validarJWT } = require("../../middleware/validarJWT");
 
 
 module.exports = (fastify) => { 
@@ -31,4 +31,6 @@ module.exports = (fastify) => {
         },
         getSedes
     )
+    
+    
 }

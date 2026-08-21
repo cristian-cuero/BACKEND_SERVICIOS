@@ -58,17 +58,22 @@ class Server {
         prefix: this.paths.pagos,
       });
       // ruta de lo relacionado a parentesco
-      this.app.register(require("../routes/parentesco.router"), {
+      this.app.register(require("../routes/catalogos/parentesco.router"), {
         prefix: this.paths.parentesco,
       });
       //ruta de sede
-      this.app.register(require("../routes/sedes.router"), {
+      this.app.register(require("../routes/catalogos/sedes.router"), {
         prefix: this.paths.sede,
       });
       //ruta de cementerio
-      this.app.register(require("../routes/cementerio.router"), {
+      this.app.register(require("../routes/catalogos/cementerio.router"), {
         prefix: this.paths.cementerio,
       });
+
+      //ruta  de estado de servicio
+      this.app.register(require("../routes/catalogos/estadoServicio.router"),{
+        prefix: this.paths.estadoServicio,
+      })
 
     }
 }

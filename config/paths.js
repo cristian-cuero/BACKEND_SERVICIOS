@@ -5,6 +5,9 @@ const paths = {
   parentesco: "/api/parentesco",
   sede: "/api/sede",
   cementerio: "/api/cementerio",
+  estadoServicio: "/api/estadoServicio",
+  banco: "/api/baco"
+
   
 };
 
