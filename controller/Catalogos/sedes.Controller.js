@@ -18,7 +18,7 @@ async function getSedes(req, reply) {
     reply.status(200).send(sedes);
   } catch (error) {
 
-    reply.status(400).send({ message: error.message });
+     reply.status(400).send(error);
   }
 }
 

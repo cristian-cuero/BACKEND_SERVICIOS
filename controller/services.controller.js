@@ -36,7 +36,7 @@ async function loadServices(req, reply) {
     const services = await loadFallecidos(tenant.subdominio, desde, hasta); // Llamar a la función loadFallecidos con el pool dinámico
     return reply.status(200).send(services);
   } catch (error) {
-    reply.status(400).send({ message: error.message });
+     reply.status(400).send(error);
   }
 }
 
@@ -61,7 +61,7 @@ async function loadServicesParam(req, reply) {
     ); // Llamar a la función loadFallecidos con el pool dinámico
     return reply.status(200).send(services);
   } catch (error) {
-    reply.status(400).send({ message: error.message });
+     reply.status(400).send(error);
   }
 }
 
@@ -79,7 +79,7 @@ async function loadPrestacion(req, reply) {
 
     return reply.status(200).send(prestacion);
   } catch (error) {
-    reply.status(400).send({ message: error.message });
+     reply.status(400).send(error);
   }
 }
 

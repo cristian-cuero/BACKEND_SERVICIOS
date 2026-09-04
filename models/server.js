@@ -3,17 +3,17 @@ const Fastify = require("fastify");
 const cors = require("@fastify/cors");
 const { dbConnections } = require("../database/db");
 const { loadDbCatalog } = require("../database/BdAfiliaciones");
-const ajvErrors = require('ajv-errors');
+const ajvErrors = require("ajv-errors");
 class Server {
   constructor() {
     this.app = Fastify({
       logger: true,
       ajv: {
         customOptions: {
-          allErrors: true
+          allErrors: true,
         },
-        plugins: [ajvErrors]
-      }
+        plugins: [ajvErrors],
+      },
     });
     this.port = 8080;
 
@@ -21,7 +21,7 @@ class Server {
 
     this.middleware();
     this.conectarDB();
-     this.routes();
+    this.routes();
   }
 
   async listen() {
@@ -44,38 +44,52 @@ class Server {
     await this.app.register(cors, {
       origin: true,
     });
-
   }
 
-    routes() {
-      this.app.register(require("../routes/user.router"), {
-        prefix: this.paths.usuarios,
-      });
-      this.app.register(require("../routes/service.router"), {
-        prefix: this.paths.servicios,
-      });
-      this.app.register(require("../routes/pagos.router"), {
-        prefix: this.paths.pagos,
-      });
-      // ruta de lo relacionado a parentesco
-      this.app.register(require("../routes/catalogos/parentesco.router"), {
-        prefix: this.paths.parentesco,
-      });
-      //ruta de sede
-      this.app.register(require("../routes/catalogos/sedes.router"), {
-        prefix: this.paths.sede,
-      });
-      //ruta de cementerio
-      this.app.register(require("../routes/catalogos/cementerio.router"), {
-        prefix: this.paths.cementerio,
-      });
+  routes() {
+    this.app.register(require("../routes/user.router"), {
+      prefix: this.paths.usuarios,
+    });
+    this.app.register(require("../routes/service.router"), {
+      prefix: this.paths.servicios,
+    });
+    this.app.register(require("../routes/pagos.router"), {
+      prefix: this.paths.pagos,
+    });
+    // ruta de lo relacionado a parentesco
+    this.app.register(require("../routes/catalogos/parentesco.router"), {
+      prefix: this.paths.parentesco,
+    });
+    //ruta de sede
+    this.app.register(require("../routes/catalogos/sedes.router"), {
+      prefix: this.paths.sede,
+    });
+    //ruta de cementerio
+    this.app.register(require("../routes/catalogos/cementerio.router"), {
+      prefix: this.paths.cementerio,
+    });
 
-      //ruta  de estado de servicio
-      this.app.register(require("../routes/catalogos/estadoServicio.router"),{
-        prefix: this.paths.estadoServicio,
-      })
+    //ruta  de estado de servicio
+    this.app.register(require("../routes/catalogos/estadoServicio.router"), {
+      prefix: this.paths.estadoServicio,
+    });
 
-    }
+    //ruta de bancos
+    this.app.register(require("../routes/catalogos/banco.router"), {
+      prefix: this.paths.banco,
+    });
+
+    //tipoIdentificacion
+
+    this.app.register(require("../routes/catalogos/tipoidentificacion"), {
+      prefix: this.paths.tipoidentificacion
+    })
+
+    //regionles- pais-depatrtamento-ciudad
+    this.app.register(require("../routes/catalogos/regional.router"), {
+      prefix : this.paths.regional
+    })
+  }
 }
 
 module.exports = Server;

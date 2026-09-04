@@ -12,7 +12,7 @@ const getCementerios = async (req, reply) => {
     const datos = await getcementerioSql(tenant.subdominio, parametros);
     reply.status(200).send(datos);
   } catch (error) {
-    reply.status(400).send({ message: error.message });
+     reply.status(400).send(error);
   }
 };
 

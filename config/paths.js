@@ -6,8 +6,10 @@ const paths = {
   sede: "/api/sede",
   cementerio: "/api/cementerio",
   estadoServicio: "/api/estadoServicio",
-  banco: "/api/baco"
-
+  banco: "/api/bancos",
+  tipoidentificacion: "/api/identificacion",
+  "regional": "/api/regional" // encargado de  pais, departamento o ciudad
+ 
   
 };
 
