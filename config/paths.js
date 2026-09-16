@@ -8,7 +8,9 @@ const paths = {
   estadoServicio: "/api/estadoServicio",
   banco: "/api/bancos",
   tipoidentificacion: "/api/identificacion",
-  "regional": "/api/regional" // encargado de  pais, departamento o ciudad
+  regional: "/api/regional", // encargado de  pais, departamento o ciudad
+  parametrosgenerales: "/api/parametros-generales",
+
  
   
 };

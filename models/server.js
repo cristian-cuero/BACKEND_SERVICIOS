@@ -89,6 +89,11 @@ class Server {
     this.app.register(require("../routes/catalogos/regional.router"), {
       prefix : this.paths.regional
     })
+
+    //parametros generales
+    this.app.register(require("../routes/catalogos/parametrosgenerales.router"), {
+      prefix : this.paths.parametrosgenerales
+    })
   }
 }
 
