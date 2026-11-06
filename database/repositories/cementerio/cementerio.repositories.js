@@ -12,6 +12,13 @@ async function getcementerioSql(db, parametros) {
 
 }
 
+// Nuevo método específico para llenar combo de ciudades (como en VB6)
+async function getCiudadesCementerio(db) {
+  const query = `SELECT DISTINCT UPPER(CIUDAD) AS CIUDAD FROM TBLCEMENTERIOS ORDER BY CIUDAD`;
+  return await ejecutarConsulta(db, query, []);
+}
+
 module.exports = {
   getcementerioSql,
+  getCiudadesCementerio,
 };

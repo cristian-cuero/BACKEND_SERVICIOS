@@ -68,10 +68,38 @@ class Server {
     this.app.register(require("../routes/catalogos/cementerio.router"), {
       prefix: this.paths.cementerio,
     });
+    //ruta de iglesias
+    this.app.register(require("../routes/catalogos/iglesias.router"), {
+      prefix: this.paths.iglesias,
+    });
+    //ruta de categorias
+    this.app.register(require("../routes/catalogos/categorias.router"), {
+      prefix: this.paths.categorias,
+    });
 
     //ruta  de estado de servicio
     this.app.register(require("../routes/catalogos/estadoServicio.router"), {
       prefix: this.paths.estadoServicio,
+    });
+
+    //ruta de tipos de servicio
+    this.app.register(require("../routes/catalogos/tiposervicio.router"), {
+      prefix: this.paths.tiposervicio,
+    });
+
+    //ruta de ejercito
+    this.app.register(require("../routes/catalogos/ejercito.router"), {
+      prefix: this.paths.ejercito,
+    });
+
+    //ruta de carrozas
+    this.app.register(require("../routes/catalogos/carrozas.router"), {
+      prefix: this.paths.carrozas,
+    });
+
+    //ruta de asesores
+    this.app.register(require("../routes/catalogos/asesores.router"), {
+      prefix: this.paths.asesores,
     });
 
     //ruta de bancos

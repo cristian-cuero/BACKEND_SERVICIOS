@@ -1,6 +1,11 @@
 const {
   loadConvenios,
   loadEstadoServicio,
+  loadCategorias,
+  loadTipoServicio,
+  loadDepartamentos,
+  loadAuxilios,
+  loadCategoriasGrupo,
 } = require("../../controller/Catalogos/parametrosGenerales/Generales.controller");
 const { validarJWT } = require("../../middleware/validarJWT");
 
@@ -35,11 +40,18 @@ module.exports = (fastify) => {
           ESTADO: {
             type: "integer",
           },
-          NOMBRE: { 
+          NOMBRE: {
             type: "string"
           }
         },
       },
     },
   }, loadEstadoServicio);
+
+  // Nuevas rutas
+  fastify.get("/loadCategorias", { preHandler: [validarJWT] }, loadCategorias);
+  fastify.get("/loadTipoServicio", { preHandler: [validarJWT] }, loadTipoServicio);
+  fastify.get("/loadDepartamentos", { preHandler: [validarJWT] }, loadDepartamentos);
+  fastify.get("/loadAuxilios", { preHandler: [validarJWT] }, loadAuxilios);
+  fastify.get("/loadCategoriasGrupo", { preHandler: [validarJWT] }, loadCategoriasGrupo);
 };

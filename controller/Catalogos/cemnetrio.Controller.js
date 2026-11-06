@@ -1,4 +1,4 @@
-const { getcementerioSql } = require("../../database/repositories/cementerio/cementerio.repositories");
+const { getcementerioSql, getCiudadesCementerioSql } = require("../../database/repositories/cementerio/cementerio.repositories");
 const { validarTenant } = require("../../helpers/requestValidator");
 
 const getCementerios = async (req, reply) => {
@@ -16,5 +16,20 @@ const getCementerios = async (req, reply) => {
   }
 };
 
+const getCiudadesCementerio = async (req, reply) => {
+  try {
+    const parametros = req.query;
+    const tenant = req.tenant;
 
-module.exports = { getCementerios };
+    if (!validarTenant(reply, tenant)) {
+      return;
+    }
+    const datos = await getCiudadesCementerioSql(tenant.subdominio, parametros);
+    reply.status(200).send(datos);
+  } catch (error) {
+    reply.status(400).send(error);
+  }
+};
+
+
+module.exports = { getCementerios, getCiudadesCementerio };

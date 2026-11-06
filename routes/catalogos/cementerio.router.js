@@ -1,5 +1,5 @@
 
-const { getCementerios } = require("../../controller/Catalogos/cemnetrio.Controller");
+const { getCementerios, getCiudadesCementerio } = require("../../controller/Catalogos/cemnetrio.Controller");
 const { validarJWT } = require("../../middleware/validarJWT");
 
 module.exports = (fastify) => {
@@ -26,4 +26,6 @@ module.exports = (fastify) => {
     },
     getCementerios,
   );
+
+  fastify.get("/loadCiudadesCementerio", { preHandler: [validarJWT] }, getCiudadesCementerio);
 };

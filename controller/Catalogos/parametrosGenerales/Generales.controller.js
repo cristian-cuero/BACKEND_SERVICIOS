@@ -1,7 +1,13 @@
-// Manejanos Convenios
-
 const { validarTenant } = require("../../../helpers/requestValidator");
-const { getConvenios, getEstadoServicio } = require("../../../database/repositories/catalogos/generaleRepository");
+const {
+    getConvenios,
+    getEstadoServicio,
+    getCategorias,
+    getTipoServicio,
+    getDepartamentos,
+    getAuxilios,
+    getCategoriasGrupo
+} = require("../../../database/repositories/catalogos/generaleRepository");
 
 // ----------------------------------PARTE DE CONVENIOS
 const loadConvenios = async (req, reply) => {
@@ -11,8 +17,8 @@ const loadConvenios = async (req, reply) => {
 
     if (!validarTenant (reply, tenant)) {
       return;
-    }  
-    
+    }
+
     const datos = await getConvenios (tenant.subdominio, paramatros);
 
     reply.send(datos);
@@ -29,20 +35,43 @@ const loadConvenios = async (req, reply) => {
 const loadEstadoServicio = async (req, reply) => {
   try {
     const paramatros = req.query;
-    const tenant = req.tenant;  
+    const tenant = req.tenant;
 
     if (!validarTenant (reply, tenant)) {
       return;
     }
 
     const datos = await getEstadoServicio (tenant.subdominio, paramatros);
-    reply.send(datos);  
+    reply.send(datos);
   } catch (error) {
     reply.status(500).send(error)
   }
 };
 
+// ----------------------------------NUEVOS MÉTODOS
+
+const createLoader = (repositoryMethod) => async (req, reply) => {
+  try {
+    const paramatros = req.query;
+    const tenant = req.tenant;
+
+    if (!validarTenant(reply, tenant)) {
+      return;
+    }
+
+    const datos = await repositoryMethod(tenant.subdominio, paramatros);
+    reply.send(datos);
+  } catch (error) {
+    reply.status(500).send(error);
+  }
+};
+
 module.exports = {
   loadConvenios,
-    loadEstadoServicio
+  loadEstadoServicio,
+  loadCategorias: createLoader(getCategorias),
+  loadTipoServicio: createLoader(getTipoServicio),
+  loadDepartamentos: createLoader(getDepartamentos),
+  loadAuxilios: createLoader(getAuxilios),
+  loadCategoriasGrupo: createLoader(getCategoriasGrupo)
 };

@@ -10,6 +10,12 @@ const paths = {
   tipoidentificacion: "/api/identificacion",
   regional: "/api/regional", // encargado de  pais, departamento o ciudad
   parametrosgenerales: "/api/parametros-generales",
+  iglesias: "/api/iglesias",
+  categorias: "/api/categorias",
+  tiposervicio: "/api/tiposervicio",
+  ejercito: "/api/ejercito",
+  carrozas: "/api/carrozas",
+  asesores: "/api/asesores",
 
  
   
