@@ -17,7 +17,8 @@ async function getIglesias(req, reply) {
 
     const datosFormateados = datos.map((item) => ({
       // Intentamos acceder tanto en mayúsculas como en minúsculas por si acaso
-      IGLESIA_CIUDAD: `${((item.IGLESIA || item.iglesia) || "").trim()} - ${((item.CIUDAD || item.ciudad) || "").trim()}`,
+      IDIGLESIA: item.idiglesia ,
+      IGLESIA: `${((item.IGLESIA || item.iglesia) || "").trim()} - ${((item.CIUDAD || item.ciudad) || "").trim()}`,
     }));
 
     reply.status(200).send(datosFormateados);

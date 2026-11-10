@@ -2,30 +2,7 @@ const { getPool } = require("../../FirebirdPoolFactory");
 const Firebird = require("node-firebird");
 const { procesos } = require("../../../helpers/procesos");
 
-// Mapeo JSON (Estilo VB6) -> Columna Firebird
-// IMPORTANTE: Asegúrate que los nombres de columnas a la derecha sean exactos en Firebird.
-const MAPA_CAMPOS = {
-  "txtsNoContrato": "IDSCONTRATO",
-  "txtCedulaAfil": "CEDULAAFIL",
-  "CmbCategoria": "IDCATEGORIA",
-  "CmbTipoServicio": "IDTIPOSERVICIO",
-  "ComboDestinoF": "DESTINOFINAL",
-  "CmbCementerio": "IDCEMENTERIO",
-  "cmbsLugarVelacion": "VELACION",
-  "fechaServicio": "SFECHA",
-  "fechaVelacion": "FECHAVELACION",
-  "horaReporte": "HORAREPORTE",
-  "horaInicioVelacion": "HORAVELACION",
-  "txtMailAfil": "MAILAFIL",
-  "CmbSede": "IDSEDE",
-  "CmbSede2": "IDSEDE2",
-  "OptMarcaPaso": "MARCAPASO",
-  "OptCovid": "COVID",
-  "CheckFiador": "IDFIADOR"
-  // Aquí iremos agregando todos los demás campos según el código VB6
-};
-
-const insertarOrdenServicio = async (subdominio, datosOrden, pwd1) => {
+const insertarOrdenServicio = async (subdominio, datosOrden) => {
   const pool = await getPool(subdominio);
 
   return new Promise((resolve, reject) => {
@@ -43,10 +20,10 @@ const insertarOrdenServicio = async (subdominio, datosOrden, pwd1) => {
           const placeholders = [];
           const valores = [];
 
-          // Construcción dinámica basada en el mapa
+          // Construcción dinámica basada en los datos ya procesados (claves = columnas FB)
           for (const [key, val] of Object.entries(datosOrden)) {
-            if (MAPA_CAMPOS[key]) {
-              columnas.push(MAPA_CAMPOS[key]);
+            if (val !== undefined && val !== null) {
+              columnas.push(key);
               placeholders.push('?');
               valores.push(val);
             }
@@ -65,8 +42,7 @@ const insertarOrdenServicio = async (subdominio, datosOrden, pwd1) => {
             "Se creo un Nueva Orden de Servicio",
             "Orden de Servicio",
             "Orden No " + (datosOrden.txtsNoContrato || "N/A"),
-            "Fallecido: " + (datosOrden.txtsFallecido || "N/A"),
-            pwd1
+            "Fallecido: " + (datosOrden.txtsFallecido || "N/A")
           );
 
           transaction.commit((err) => {

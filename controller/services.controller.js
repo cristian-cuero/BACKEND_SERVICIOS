@@ -6,6 +6,7 @@ const {
 const { insertarOrdenServicio } = require("../database/repositories/OrdenServicio/ordenServicio.repositories");
 const { validarTenant } = require("../helpers/requestValidator");
 const { validarOrden } = require("../helpers/validarOrden");
+const { preprocesarOrden } = require("../helpers/preprocesarOrden");
 
 async function loadServices(req, reply) {
   try {
@@ -99,8 +100,11 @@ async function createOrdenServicio(req, reply) {
       return reply.status(400).send({ message: "Errores de validación", errores });
     }
 
+    // 2.1 Preprocesar datos
+    const datosProcesados = preprocesarOrden(datosOrden);
+
     // 3. Llamar al repositorio transaccional
-    const resultado = await insertarOrdenServicio(tenant.subdominio, datosOrden);
+    const resultado = await insertarOrdenServicio(tenant.subdominio, datosProcesados);
 
     return reply.status(201).send({
       message: "Orden creada con éxito",
