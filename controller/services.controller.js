@@ -3,7 +3,9 @@ const {
   loadFallecidosByParam,
   loadPrestacionQuery,
 } = require("../database/repositories/Fallecidos/fallecidos.repositories");
+const { insertarOrdenServicio } = require("../database/repositories/OrdenServicio/ordenServicio.repositories");
 const { validarTenant } = require("../helpers/requestValidator");
+const { validarOrden } = require("../helpers/validarOrden");
 
 async function loadServices(req, reply) {
   try {
@@ -83,8 +85,36 @@ async function loadPrestacion(req, reply) {
   }
 }
 
+async function createOrdenServicio(req, reply) {
+  try {
+    const tenant = req.tenant;
+    const datosOrden = req.body;
+
+    // 1. Validar tenant
+    if (!validarTenant(reply, tenant)) return;
+
+    // 2. Validaciones de negocio (Helper)
+    const errores = validarOrden(datosOrden, datosOrden.SNuevo);
+    if (errores.length > 0) {
+      return reply.status(400).send({ message: "Errores de validación", errores });
+    }
+
+    // 3. Llamar al repositorio transaccional
+    const resultado = await insertarOrdenServicio(tenant.subdominio, datosOrden);
+
+    return reply.status(201).send({
+      message: "Orden creada con éxito",
+      resultado
+    });
+  } catch (error) {
+    req.log.error(error);
+    return reply.status(400).send({ message: "Error al guardar la orden", error: error.message });
+  }
+}
+
 module.exports = {
   loadServices,
   loadServicesParam,
   loadPrestacion,
+  createOrdenServicio,
 };

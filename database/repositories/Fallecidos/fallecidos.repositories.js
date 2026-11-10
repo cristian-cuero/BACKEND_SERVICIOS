@@ -1,6 +1,8 @@
 const { normalizeRow } = require("../../../helpers/normalizeUTF8");
 const { ejecutarConsulta } = require("../../PoolConsulta");
 
+// ============ CONSULTAS EXISTENTES ============
+
 // Cargar órdenes entre dos fechas
 const loadFallecidos = async (db, desde, hasta) => {
   const fallecidos = await ejecutarConsulta(
@@ -33,5 +35,5 @@ const loadPrestacionQuery = async (db, dato) => {
 module.exports = {
   loadFallecidos,
   loadFallecidosByParam,
-  loadPrestacionQuery,
+  loadPrestacionQuery
 };

@@ -102,6 +102,7 @@ class Server {
       prefix: this.paths.asesores,
     });
 
+
     //ruta de bancos
     this.app.register(require("../routes/catalogos/banco.router"), {
       prefix: this.paths.banco,

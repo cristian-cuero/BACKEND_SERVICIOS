@@ -16,6 +16,8 @@ const paths = {
   ejercito: "/api/ejercito",
   carrozas: "/api/carrozas",
   asesores: "/api/asesores",
+  ordenes: "/api/ordenes",
+  ordenes: "/api/ordenes",
 
  
   

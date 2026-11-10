@@ -1,28 +1,20 @@
-const { loadServices, loadServicesParam, loadPrestacion } = require("../controller/services.controller");
+const { loadServices, loadServicesParam, loadPrestacion, createOrdenServicio } = require("../controller/services.controller");
 const { validarJWT } = require("../middleware/validarJWT");
+const { ordenFallecidoSchema } = require("../schema/ordenFallecido.schema");
 
 module.exports = (fastify) => {
+  // Rutas de consulta
   fastify.get(
     "/loadServices",
     {
       preHandler: [validarJWT],
-
       schema: {
         querystring: {
           type: "object",
-
           required: ["desde", "hasta"],
-
           properties: {
-            desde: {
-              type: "string",
-              format: "date",
-            },
-
-            hasta: {
-              type: "string",
-              format: "date",
-            },
+            desde: { type: "string", format: "date" },
+            hasta: { type: "string", format: "date" },
           },
         },
       },
@@ -34,7 +26,6 @@ module.exports = (fastify) => {
     "/loadServicesByParam",
     {
       preHandler: [validarJWT],
-
       schema: {
         querystring: {
           required: ["dato", "parametro"],
@@ -48,8 +39,17 @@ module.exports = (fastify) => {
     "/loadPrestacion/:id",
     {
       preHandler: [validarJWT],
-
     },
     loadPrestacion
-  )
+  );
+
+  // Ruta de creación
+  fastify.post(
+    "/create",
+    {
+      preHandler: [validarJWT],
+      schema: ordenFallecidoSchema,
+    },
+    createOrdenServicio
+  );
 };
